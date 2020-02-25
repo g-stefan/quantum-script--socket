@@ -1,0 +1,7 @@
+--lib qse-socket
+--project-base=quantum-script-extension-socket
+--source-is-separate
+--use-project=quantum-script.static
+--use-project=qse-buffer.static
+--install-dev
+--install-inc=quantum-script-extension
