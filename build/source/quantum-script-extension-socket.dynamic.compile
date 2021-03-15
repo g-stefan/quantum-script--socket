@@ -1,6 +1,6 @@
 --dll qse-socket
 --project-base=quantum-script-extension-socket
---source-is-separate
+--build-include
 --dll-no-version
 --use-project=quantum-script
 --use-project=qse-buffer
