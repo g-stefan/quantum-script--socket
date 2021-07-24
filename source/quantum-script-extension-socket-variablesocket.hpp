@@ -47,39 +47,27 @@ namespace Quantum {
 				class VariableSocket :
 					public Variable {
 						XYO_DISALLOW_COPY_ASSIGN_MOVE(VariableSocket);
+						XYO_DYNAMIC_TYPE_DEFINE(QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT, VariableSocket);
 					protected:
 						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT static const char *strTypeSocket;
-						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT static const char *typeSocketKey;
-						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT static const void *typeSocket;
 					public:
 
 						XYO::Socket value;
 
-						inline VariableSocket() {
-							variableType = registerType(typeSocket, typeSocketKey);
-						};
+						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT VariableSocket();
 
 						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT void activeDestructor();
 
 						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT static Variable *newVariable();
 
-						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT String getType();
+						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT String getVariableType();
 
-						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT Variable &operatorReference(Symbol symbolId);
 						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT Variable *instancePrototype();
 
 						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT Variable *clone(SymbolList &inSymbolList);
 
 						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT bool toBoolean();
 						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT String toString();
-
-						//
-						inline static bool isVariableSocket(const Variable *value) {
-							if(typeSocket == nullptr) {
-								typeSocket = registerType(typeSocket, typeSocketKey);
-							};
-							return (value->variableType == typeSocket);
-						};
 
 				};
 

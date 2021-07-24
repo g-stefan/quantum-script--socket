@@ -27,20 +27,19 @@ namespace Quantum {
 
 				using namespace XYO;
 
-				const char *VariableSocket::typeSocketKey = "{DBB0BD0F-547B-445D-B070-0A744845F8F4}";
-				const void *VariableSocket::typeSocket;
+				XYO_DYNAMIC_TYPE_IMPLEMENT(VariableSocket, "{DBB0BD0F-547B-445D-B070-0A744845F8F4}");
 				const char *VariableSocket::strTypeSocket = "Socket";
 
-				String VariableSocket::getType() {
+				VariableSocket::VariableSocket() {
+					XYO_DYNAMIC_TYPE_PUSH(VariableSocket);
+				};
+
+				String VariableSocket::getVariableType() {
 					return strTypeSocket;
 				};
 
 				Variable *VariableSocket::newVariable() {
 					return (Variable *) TMemory<VariableSocket>::newMemory();
-				};
-
-				Variable &VariableSocket::operatorReference(Symbol symbolId) {
-					return operatorReferenceX(symbolId, (Extension::Socket::getContext())->prototypeSocket->prototype);
 				};
 
 				Variable *VariableSocket::instancePrototype() {

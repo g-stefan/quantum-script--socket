@@ -66,7 +66,7 @@ namespace Quantum {
 					socketContext->prototypeSocket.newMemory();
 
 					defaultPrototypeFunction = (VariableFunction *)VariableFunction::newVariable(nullptr, nullptr, nullptr, functionSocket, nullptr, nullptr);
-					((Context::getGlobalObject())->operatorReferenceOwnProperty(socketContext->symbolFunctionSocket))=defaultPrototypeFunction;
+					(Context::getGlobalObject())->setPropertyBySymbol(socketContext->symbolFunctionSocket,defaultPrototypeFunction);
 					socketContext->prototypeSocket = defaultPrototypeFunction->prototype;
 
 				};
@@ -75,7 +75,7 @@ namespace Quantum {
 #ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
 					printf("- script-is-socket\n");
 #endif
-					return VariableBoolean::newVariable(VariableSocket::isVariableSocket(arguments->index(0)));
+					return VariableBoolean::newVariable(TIsType<VariableSocket>(arguments->index(0)));
 				};
 
 				static TPointer<Variable> openServer(VariableFunction *function, Variable *this_, VariableArray *arguments) {
@@ -83,7 +83,7 @@ namespace Quantum {
 					printf("- socket-open-server\n");
 #endif
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -96,7 +96,7 @@ namespace Quantum {
 					printf("- socket-open-client\n");
 #endif
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -117,11 +117,11 @@ namespace Quantum {
 					size_t k;
 					char buffer[16384];
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
-					if(VariableUndefined::isVariableUndefined(arguments->index(0))) {
+					if(TIsTypeExact<VariableUndefined>(arguments->index(0))) {
 						ln = 16384;
 					} else {
 
@@ -170,12 +170,12 @@ namespace Quantum {
 					String  retV;  // first 1024, next + 1024 bytes
 					Number ln;
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 
-					if(VariableUndefined::isVariableUndefined(arguments->index(0))) {
+					if(TIsTypeExact<VariableUndefined>(arguments->index(0))) {
 						ln = 16384;
 					} else {
 
@@ -198,7 +198,7 @@ namespace Quantum {
 					printf("- socket-write\n");
 #endif
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -214,7 +214,7 @@ namespace Quantum {
 					printf("- socket-write-ln\n");
 #endif
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -230,7 +230,7 @@ namespace Quantum {
 					printf("- socket-listen\n");
 #endif
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -247,7 +247,7 @@ namespace Quantum {
 					printf("- socket-close\n");
 #endif
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -261,7 +261,7 @@ namespace Quantum {
 					printf("- socket-accept\n");
 #endif
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -279,7 +279,7 @@ namespace Quantum {
 					printf("- socket-wait-to-write\n");
 #endif
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -297,7 +297,7 @@ namespace Quantum {
 					printf("- socket-wait-to-read\n");
 #endif
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -321,17 +321,17 @@ namespace Quantum {
 					size_t k;
 					Number ln;
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointerX<Variable> &buffer(arguments->index(0));
 
-					if(!Extension::Buffer::VariableBuffer::isVariableBuffer(buffer)) {
+					if(!TIsType<Extension::Buffer::VariableBuffer>(buffer)) {
 						throw(Error("invalid parameter"));
 					};
 
-					if(VariableUndefined::isVariableUndefined(arguments->index(0))) {
+					if(TIsTypeExact<VariableUndefined>(arguments->index(0))) {
 						ln = 16384;
 					} else {
 
@@ -375,13 +375,13 @@ namespace Quantum {
 					printf("- socket-write-from-buffer\n");
 #endif
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointerX<Variable> &buffer(arguments->index(0));
 
-					if(!Extension::Buffer::VariableBuffer::isVariableBuffer(buffer)) {
+					if(!TIsType<Extension::Buffer::VariableBuffer>(buffer)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -395,13 +395,13 @@ namespace Quantum {
 					printf("- socket-become-owner\n");
 #endif
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointerX<Variable> &value = arguments->index(0);
 
-					if(!VariableSocket::isVariableSocket(value)) {
+					if(!TIsType<VariableSocket>(value)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -415,13 +415,13 @@ namespace Quantum {
 					printf("- socket-link-owner\n");
 #endif
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointerX<Variable> &value = arguments->index(0);
 
-					if(!VariableSocket::isVariableSocket(value)) {
+					if(!TIsType<VariableSocket>(value)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -435,7 +435,7 @@ namespace Quantum {
 					printf("- socket-unlink-owner\n");
 #endif
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -450,13 +450,13 @@ namespace Quantum {
 					printf("- socket-transfer-owner\n");
 #endif
 
-					if(!VariableSocket::isVariableSocket(this_)) {
+					if(!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointerX<Variable> &value = arguments->index(0);
 
-					if(!VariableSocket::isVariableSocket(value)) {
+					if(!TIsType<VariableSocket>(value)) {
 						throw(Error("invalid parameter"));
 					};
 
