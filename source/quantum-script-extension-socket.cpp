@@ -15,7 +15,7 @@
 #include "quantum-script-extension-socket-license.hpp"
 #include "quantum-script-extension-socket.hpp"
 #ifndef QUANTUM_SCRIPT_EXTENSION_SOCKET_NO_VERSION
-#include "quantum-script-extension-socket-version.hpp"
+#	include "quantum-script-extension-socket-version.hpp"
 #endif
 //
 #include "quantum-script-variableboolean.hpp"
@@ -66,9 +66,8 @@ namespace Quantum {
 					socketContext->prototypeSocket.newMemory();
 
 					defaultPrototypeFunction = (VariableFunction *)VariableFunction::newVariable(nullptr, nullptr, nullptr, functionSocket, nullptr, nullptr);
-					(Context::getGlobalObject())->setPropertyBySymbol(socketContext->symbolFunctionSocket,defaultPrototypeFunction);
+					(Context::getGlobalObject())->setPropertyBySymbol(socketContext->symbolFunctionSocket, defaultPrototypeFunction);
 					socketContext->prototypeSocket = defaultPrototypeFunction->prototype;
-
 				};
 
 				static TPointer<Variable> isSocket(VariableFunction *function, Variable *this_, VariableArray *arguments) {
@@ -83,32 +82,30 @@ namespace Quantum {
 					printf("- socket-open-server\n");
 #endif
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
-					return VariableBoolean::newVariable(((VariableSocket *)( this_ ))->value.openServerX((arguments->index(0))->toString()));
+					return VariableBoolean::newVariable(((VariableSocket *)(this_))->value.openServerX((arguments->index(0))->toString()));
 				};
-
 
 				static TPointer<Variable> openClient(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
 					printf("- socket-open-client\n");
 #endif
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
-					return VariableBoolean::newVariable(((VariableSocket *)( this_ ))->value.openClientX((arguments->index(0))->toString()));
+					return VariableBoolean::newVariable(((VariableSocket *)(this_))->value.openClientX((arguments->index(0))->toString()));
 				};
-
 
 				static TPointer<Variable> socketRead(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
 					printf("- socket-read\n");
 #endif
-					String  retV;
+					String retV;
 					Number ln;
 					size_t readLn;
 					size_t readToLn;
@@ -117,44 +114,43 @@ namespace Quantum {
 					size_t k;
 					char buffer[16384];
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
-					if(TIsTypeExact<VariableUndefined>(arguments->index(0))) {
+					if (TIsTypeExact<VariableUndefined>(arguments->index(0))) {
 						ln = 16384;
 					} else {
 
 						ln = (arguments->index(0))->toNumber();
-						if(isnan(ln) || isinf(ln) || signbit(ln)) {
+						if (isnan(ln) || isinf(ln) || signbit(ln)) {
 							return Context::getValueUndefined();
 						};
-
 					};
 
 					readToLn = (size_t)(ln);
 					readTotal = 0;
 					readX = 16384;
-					if(readToLn < readX) {
+					if (readToLn < readX) {
 						readX = readToLn;
 					};
-					for(;;) {
-						readLn = ((VariableSocket *) this_)->value.read(buffer, readX);
+					for (;;) {
+						readLn = ((VariableSocket *)this_)->value.read(buffer, readX);
 
-						if(readLn > 0) {
+						if (readLn > 0) {
 							retV.concatenate(buffer, readLn);
 						};
-						//end of file
-						if(readLn < readX) {
+						// end of file
+						if (readLn < readX) {
 							break;
 						};
-						//end of read
+						// end of read
 						readTotal += readLn;
-						if(readTotal >= readToLn) {
+						if (readTotal >= readToLn) {
 							break;
 						};
 						readX = readToLn - readTotal;
-						if(readX > 16384) {
+						if (readX > 16384) {
 							readX = 16384;
 						};
 					};
@@ -162,31 +158,28 @@ namespace Quantum {
 					return VariableString::newVariable(retV);
 				};
 
-
 				static TPointer<Variable> socketReadLn(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
 					printf("- socket-read-ln\n");
 #endif
-					String  retV;  // first 1024, next + 1024 bytes
+					String retV; // first 1024, next + 1024 bytes
 					Number ln;
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
-
-					if(TIsTypeExact<VariableUndefined>(arguments->index(0))) {
+					if (TIsTypeExact<VariableUndefined>(arguments->index(0))) {
 						ln = 16384;
 					} else {
 
 						ln = (arguments->index(0))->toNumber();
-						if(isnan(ln) || isinf(ln) || signbit(ln)) {
+						if (isnan(ln) || isinf(ln) || signbit(ln)) {
 							return Context::getValueUndefined();
 						};
-
 					};
 
-					if(StreamX::readLn(((VariableSocket *) this_)->value, retV, ln)) {
+					if (StreamX::readLn(((VariableSocket *)this_)->value, retV, ln)) {
 						return VariableString::newVariable(retV);
 					};
 
@@ -198,31 +191,26 @@ namespace Quantum {
 					printf("- socket-write\n");
 #endif
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					String toWrite = (arguments->index(0))->toString();
-					return VariableNumber::newVariable((Number)(((VariableSocket *) this_)->value.write(
-									toWrite.value(), toWrite.length()
-								)));
+					return VariableNumber::newVariable((Number)(((VariableSocket *)this_)->value.write(toWrite.value(), toWrite.length())));
 				};
-
 
 				static TPointer<Variable> socketWriteLn(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
 					printf("- socket-write-ln\n");
 #endif
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					String toWrite = (arguments->index(0))->toString();
 					toWrite << "\r\n";
-					return VariableNumber::newVariable((Number)(((VariableSocket *) this_)->value.write(
-									toWrite.value(), toWrite.length()
-								)));
+					return VariableNumber::newVariable((Number)(((VariableSocket *)this_)->value.write(toWrite.value(), toWrite.length())));
 				};
 
 				static TPointer<Variable> socketListen(VariableFunction *function, Variable *this_, VariableArray *arguments) {
@@ -230,16 +218,16 @@ namespace Quantum {
 					printf("- socket-listen\n");
 #endif
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					Number count_ = (arguments->index(0))->toNumber();
-					if(isnan(count_) || isinf(count_) || signbit(count_)) {
+					if (isnan(count_) || isinf(count_) || signbit(count_)) {
 						return VariableBoolean::newVariable(false);
 					};
 
-					return VariableBoolean::newVariable(((VariableSocket *) this_)->value.listen((uint16_t)count_));
+					return VariableBoolean::newVariable(((VariableSocket *)this_)->value.listen((uint16_t)count_));
 				};
 
 				static TPointer<Variable> socketClose(VariableFunction *function, Variable *this_, VariableArray *arguments) {
@@ -247,11 +235,11 @@ namespace Quantum {
 					printf("- socket-close\n");
 #endif
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
-					((VariableSocket *) this_)->value.close();
+					((VariableSocket *)this_)->value.close();
 
 					return Context::getValueUndefined();
 				};
@@ -261,13 +249,13 @@ namespace Quantum {
 					printf("- socket-accept\n");
 #endif
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					VariableSocket *socket_ = (VariableSocket *)VariableSocket::newVariable();
 
-					if(((VariableSocket *) this_)->value.accept(socket_->value)) {
+					if (((VariableSocket *)this_)->value.accept(socket_->value)) {
 						return socket_;
 					};
 					socket_->decReferenceCount();
@@ -279,36 +267,34 @@ namespace Quantum {
 					printf("- socket-wait-to-write\n");
 #endif
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					Number microSeconds = (arguments->index(0))->toNumber();
-					if(isnan(microSeconds) || isinf(microSeconds) || signbit(microSeconds)) {
+					if (isnan(microSeconds) || isinf(microSeconds) || signbit(microSeconds)) {
 						return VariableNumber::newVariable(NAN);
 					};
 
-					return VariableNumber::newVariable(((VariableSocket *) this_)->value.waitToWrite((uint32_t)microSeconds));
+					return VariableNumber::newVariable(((VariableSocket *)this_)->value.waitToWrite((uint32_t)microSeconds));
 				};
-
 
 				static TPointer<Variable> waitToRead(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
 					printf("- socket-wait-to-read\n");
 #endif
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					Number microSeconds = (arguments->index(0))->toNumber();
-					if(isnan(microSeconds) || isinf(microSeconds) || signbit(microSeconds)) {
+					if (isnan(microSeconds) || isinf(microSeconds) || signbit(microSeconds)) {
 						return VariableNumber::newVariable(NAN);
 					};
 
-					return VariableNumber::newVariable(((VariableSocket *) this_)->value.waitToRead((uint32_t)microSeconds));
+					return VariableNumber::newVariable(((VariableSocket *)this_)->value.waitToRead((uint32_t)microSeconds));
 				};
-
 
 				static TPointer<Variable> socketReadToBuffer(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
@@ -321,46 +307,45 @@ namespace Quantum {
 					size_t k;
 					Number ln;
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointerX<Variable> &buffer(arguments->index(0));
 
-					if(!TIsType<Extension::Buffer::VariableBuffer>(buffer)) {
+					if (!TIsType<Extension::Buffer::VariableBuffer>(buffer)) {
 						throw(Error("invalid parameter"));
 					};
 
-					if(TIsTypeExact<VariableUndefined>(arguments->index(0))) {
+					if (TIsTypeExact<VariableUndefined>(arguments->index(0))) {
 						ln = 16384;
 					} else {
 
 						ln = (arguments->index(1))->toNumber();
-						if(isnan(ln) || signbit(ln) || ln == 0.0) {
+						if (isnan(ln) || signbit(ln) || ln == 0.0) {
 							((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.length = 0;
 							return VariableNumber::newVariable(0);
 						};
-						if(isinf(ln)) {
+						if (isinf(ln)) {
 							ln = ((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.size;
 						};
-
 					};
 
-					if(ln > ((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.size) {
+					if (ln > ((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.size) {
 						ln = ((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.size;
 					};
 
 					readToLn = (size_t)ln;
 					readTotal = 0;
 					readX = readToLn;
-					for(;;) {
-						readLn = ((VariableSocket *) this_)->value.read(&(((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.buffer)[readTotal], readX);
-						//end of transmision
-						if(readLn == 0) {
+					for (;;) {
+						readLn = ((VariableSocket *)this_)->value.read(&(((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.buffer)[readTotal], readX);
+						// end of transmision
+						if (readLn == 0) {
 							break;
 						};
 						readTotal += readLn;
-						if(readTotal >= readToLn) {
+						if (readTotal >= readToLn) {
 							break;
 						};
 						readX = readToLn - readTotal;
@@ -369,25 +354,22 @@ namespace Quantum {
 					return VariableNumber::newVariable(readTotal);
 				};
 
-
 				static TPointer<Variable> socketWriteFromBuffer(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
 					printf("- socket-write-from-buffer\n");
 #endif
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointerX<Variable> &buffer(arguments->index(0));
 
-					if(!TIsType<Extension::Buffer::VariableBuffer>(buffer)) {
+					if (!TIsType<Extension::Buffer::VariableBuffer>(buffer)) {
 						throw(Error("invalid parameter"));
 					};
 
-					return VariableNumber::newVariable((Number)(((VariableSocket *) this_)->value.write(
-									((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.buffer, ((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.length
-								)));
+					return VariableNumber::newVariable((Number)(((VariableSocket *)this_)->value.write(((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.buffer, ((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.length)));
 				};
 
 				static TPointer<Variable> socketBecomeOwner(VariableFunction *function, Variable *this_, VariableArray *arguments) {
@@ -395,17 +377,17 @@ namespace Quantum {
 					printf("- socket-become-owner\n");
 #endif
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointerX<Variable> &value = arguments->index(0);
 
-					if(!TIsType<VariableSocket>(value)) {
+					if (!TIsType<VariableSocket>(value)) {
 						throw(Error("invalid parameter"));
 					};
 
-					((VariableSocket *) this_)->value.becomeOwner(((VariableSocket *)(value.value()))->value);
+					((VariableSocket *)this_)->value.becomeOwner(((VariableSocket *)(value.value()))->value);
 
 					return Context::getValueUndefined();
 				};
@@ -415,17 +397,17 @@ namespace Quantum {
 					printf("- socket-link-owner\n");
 #endif
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointerX<Variable> &value = arguments->index(0);
 
-					if(!TIsType<VariableSocket>(value)) {
+					if (!TIsType<VariableSocket>(value)) {
 						throw(Error("invalid parameter"));
 					};
 
-					((VariableSocket *) this_)->value.linkOwner(((VariableSocket *)(value.value()))->value);
+					((VariableSocket *)this_)->value.linkOwner(((VariableSocket *)(value.value()))->value);
 
 					return Context::getValueUndefined();
 				};
@@ -435,32 +417,31 @@ namespace Quantum {
 					printf("- socket-unlink-owner\n");
 #endif
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
-					((VariableSocket *) this_)->value.unLinkOwner();
+					((VariableSocket *)this_)->value.unLinkOwner();
 
 					return Context::getValueUndefined();
 				};
-
 
 				static TPointer<Variable> socketTransferOwner(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
 					printf("- socket-transfer-owner\n");
 #endif
 
-					if(!TIsType<VariableSocket>(this_)) {
+					if (!TIsType<VariableSocket>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointerX<Variable> &value = arguments->index(0);
 
-					if(!TIsType<VariableSocket>(value)) {
+					if (!TIsType<VariableSocket>(value)) {
 						throw(Error("invalid parameter"));
 					};
 
-					((VariableSocket *) this_)->value.transferOwner(((VariableSocket *)(value.value()))->value);
+					((VariableSocket *)this_)->value.transferOwner(((VariableSocket *)(value.value()))->value);
 
 					return Context::getValueUndefined();
 				};
@@ -485,23 +466,23 @@ namespace Quantum {
 
 					executive->compileStringX("Script.requireExtension(\"Buffer\");");
 					executive->setFunction2("Socket.isSocket(x)", isSocket);
-					executive->setFunction2("Socket.prototype.openServer(addr)",  openServer);
-					executive->setFunction2("Socket.prototype.openClient(addr)",  openClient);
-					executive->setFunction2("Socket.prototype.read(size)",  socketRead);
-					executive->setFunction2("Socket.prototype.readLn(size)",  socketReadLn);
-					executive->setFunction2("Socket.prototype.write(str)",  socketWrite);
-					executive->setFunction2("Socket.prototype.writeLn(str)",  socketWriteLn);
-					executive->setFunction2("Socket.prototype.listen(count)",  socketListen);
-					executive->setFunction2("Socket.prototype.close()",  socketClose);
-					executive->setFunction2("Socket.prototype.accept()",  socketAccept);
-					executive->setFunction2("Socket.prototype.waitToWrite(microSec)",  waitToWrite);
-					executive->setFunction2("Socket.prototype.waitToRead(microSec)",  waitToRead);
-					executive->setFunction2("Socket.prototype.readToBuffer(buffer)",  socketReadToBuffer);
-					executive->setFunction2("Socket.prototype.writeFromBuffer(buffer)",  socketWriteFromBuffer);
-					executive->setFunction2("Socket.prototype.becomeOwner(socket)",  socketBecomeOwner);
-					executive->setFunction2("Socket.prototype.linkOwner(socket)",  socketLinkOwner);
-					executive->setFunction2("Socket.prototype.unLinkOwner(socket)",  socketUnLinkOwner);
-					executive->setFunction2("Socket.prototype.transferOwner(socket)",  socketTransferOwner);
+					executive->setFunction2("Socket.prototype.openServer(addr)", openServer);
+					executive->setFunction2("Socket.prototype.openClient(addr)", openClient);
+					executive->setFunction2("Socket.prototype.read(size)", socketRead);
+					executive->setFunction2("Socket.prototype.readLn(size)", socketReadLn);
+					executive->setFunction2("Socket.prototype.write(str)", socketWrite);
+					executive->setFunction2("Socket.prototype.writeLn(str)", socketWriteLn);
+					executive->setFunction2("Socket.prototype.listen(count)", socketListen);
+					executive->setFunction2("Socket.prototype.close()", socketClose);
+					executive->setFunction2("Socket.prototype.accept()", socketAccept);
+					executive->setFunction2("Socket.prototype.waitToWrite(microSec)", waitToWrite);
+					executive->setFunction2("Socket.prototype.waitToRead(microSec)", waitToRead);
+					executive->setFunction2("Socket.prototype.readToBuffer(buffer)", socketReadToBuffer);
+					executive->setFunction2("Socket.prototype.writeFromBuffer(buffer)", socketWriteFromBuffer);
+					executive->setFunction2("Socket.prototype.becomeOwner(socket)", socketBecomeOwner);
+					executive->setFunction2("Socket.prototype.linkOwner(socket)", socketLinkOwner);
+					executive->setFunction2("Socket.prototype.unLinkOwner(socket)", socketUnLinkOwner);
+					executive->setFunction2("Socket.prototype.transferOwner(socket)", socketTransferOwner);
 				};
 
 			};
@@ -514,4 +495,3 @@ extern "C" QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT void quantumScriptExtension(Qu
 	Quantum::Script::Extension::Socket::initExecutive(executive, extensionId);
 };
 #endif
-

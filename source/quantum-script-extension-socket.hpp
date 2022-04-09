@@ -11,23 +11,23 @@
 #define QUANTUM_SCRIPT_EXTENSION_SOCKET_HPP
 
 #ifndef QUANTUM_SCRIPT_HPP
-#include "quantum-script.hpp"
+#	include "quantum-script.hpp"
 #endif
 
 #ifndef QUANTUM_SCRIPT_EXTENSION_SOCKET__EXPORT_HPP
-#include "quantum-script-extension-socket--export.hpp"
+#	include "quantum-script-extension-socket--export.hpp"
 #endif
 
 #ifndef QUANTUM_SCRIPT_EXTENSION_SOCKET_COPYRIGHT_HPP
-#include "quantum-script-extension-socket-copyright.hpp"
+#	include "quantum-script-extension-socket-copyright.hpp"
 #endif
 
 #ifndef QUANTUM_SCRIPT_EXTENSION_SOCKET_LICENSE_HPP
-#include "quantum-script-extension-socket-license.hpp"
+#	include "quantum-script-extension-socket-license.hpp"
 #endif
 
 #ifndef QUANTUM_SCRIPT_EXTENSION_SOCKET_VERSION_HPP
-#include "quantum-script-extension-socket-version.hpp"
+#	include "quantum-script-extension-socket-version.hpp"
 #endif
 
 namespace Quantum {
@@ -37,11 +37,10 @@ namespace Quantum {
 
 				using namespace Quantum::Script;
 
-				class SocketContext:
-					public Object {
+				class SocketContext : public Object {
 						XYO_DISALLOW_COPY_ASSIGN_MOVE(SocketContext);
-					public:
 
+					public:
 						Symbol symbolFunctionSocket;
 						TPointerX<Prototype> prototypeSocket;
 
@@ -59,4 +58,3 @@ namespace Quantum {
 };
 
 #endif
-

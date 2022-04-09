@@ -19,7 +19,6 @@
 #include "quantum-script-extension-socket.hpp"
 #include "quantum-script-extension-socket-variablesocket.hpp"
 
-
 namespace Quantum {
 	namespace Script {
 		namespace Extension {
@@ -39,7 +38,7 @@ namespace Quantum {
 				};
 
 				Variable *VariableSocket::newVariable() {
-					return (Variable *) TMemory<VariableSocket>::newMemory();
+					return (Variable *)TMemory<VariableSocket>::newMemory();
 				};
 
 				Variable *VariableSocket::instancePrototype() {
@@ -53,7 +52,7 @@ namespace Quantum {
 				Variable *VariableSocket::clone(SymbolList &inSymbolList) {
 					VariableSocket *out = (VariableSocket *)newVariable();
 					out->value.becomeOwner(value);
-					return  out;
+					return out;
 				};
 
 				bool VariableSocket::toBoolean() {
@@ -68,5 +67,3 @@ namespace Quantum {
 		};
 	};
 };
-
-

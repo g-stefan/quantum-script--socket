@@ -12,8 +12,7 @@
 #include "quantum-script-extension-socket-license.cpp"
 
 #ifndef QUANTUM_SCRIPT_EXTENSION_SOCKET_NO_VERSION
-#include "quantum-script-extension-socket-version.cpp"
+#	include "quantum-script-extension-socket-version.cpp"
 #endif
 
 #include "quantum-script-extension-socket-variablesocket.cpp"
-

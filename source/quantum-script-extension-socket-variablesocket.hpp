@@ -11,7 +11,7 @@
 #define QUANTUM_SCRIPT_VARIABLESOCKET_HPP
 
 #ifndef QUANTUM_SCRIPT_VARIABLE_HPP
-#include "quantum-script-variable.hpp"
+#	include "quantum-script-variable.hpp"
 #endif
 
 namespace Quantum {
@@ -27,15 +27,12 @@ namespace Quantum {
 	};
 };
 
-
 namespace XYO {
 	namespace ManagedMemory {
-		template<>
-		class TMemory<Quantum::Script::Extension::Socket::VariableSocket>:
-			public TMemoryPoolActive<Quantum::Script::Extension::Socket::VariableSocket> {};
+		template <>
+		class TMemory<Quantum::Script::Extension::Socket::VariableSocket> : public TMemoryPoolActive<Quantum::Script::Extension::Socket::VariableSocket> {};
 	};
 };
-
 
 namespace Quantum {
 	namespace Script {
@@ -44,14 +41,14 @@ namespace Quantum {
 
 				using namespace XYO;
 
-				class VariableSocket :
-					public Variable {
+				class VariableSocket : public Variable {
 						XYO_DISALLOW_COPY_ASSIGN_MOVE(VariableSocket);
 						XYO_DYNAMIC_TYPE_DEFINE(QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT, VariableSocket);
+
 					protected:
 						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT static const char *strTypeSocket;
-					public:
 
+					public:
 						XYO::Socket value;
 
 						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT VariableSocket();
@@ -68,15 +65,11 @@ namespace Quantum {
 
 						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT bool toBoolean();
 						QUANTUM_SCRIPT_EXTENSION_SOCKET_EXPORT String toString();
-
 				};
-
 
 			};
 		};
 	};
 };
 
-
 #endif
-
