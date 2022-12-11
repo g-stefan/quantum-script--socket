@@ -1,0 +1,15 @@
+{
+	"project": {
+		"name":"quantum-script--socket",
+		"type":"xyo-cpp",
+		"make" : "lib-and-dll",
+		"SPDX-License-Identifier": "MIT",
+		"sourcePath" : "XYO/QuantumScript.Extension/Socket",
+		"dependency" : [
+			"quantum-script",
+			"quantum-script--console",
+			"quantum-script--buffer",
+			"xyo-networking"
+		]
+	}
+}
