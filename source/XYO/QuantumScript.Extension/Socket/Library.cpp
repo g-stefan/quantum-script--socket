@@ -49,14 +49,14 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> isSocket(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- script-is-socket\n");
 #endif
 		return VariableBoolean::newVariable(TIsType<VariableSocket>(arguments->index(0)));
 	};
 
 	static TPointer<Variable> openServer(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-open-server\n");
 #endif
 
@@ -68,7 +68,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> openClient(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-open-client\n");
 #endif
 
@@ -80,7 +80,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> socketRead(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-read\n");
 #endif
 		String retV;
@@ -137,7 +137,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> socketReadLn(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-read-ln\n");
 #endif
 		String retV; // first 1024, next + 1024 bytes
@@ -165,7 +165,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> socketWrite(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-write\n");
 #endif
 
@@ -178,7 +178,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> socketWriteLn(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-write-ln\n");
 #endif
 
@@ -192,7 +192,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> socketListen(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-listen\n");
 #endif
 
@@ -209,7 +209,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> socketClose(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-close\n");
 #endif
 
@@ -223,7 +223,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> socketAccept(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-accept\n");
 #endif
 
@@ -241,7 +241,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> waitToWrite(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-wait-to-write\n");
 #endif
 
@@ -258,7 +258,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> waitToRead(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-wait-to-read\n");
 #endif
 
@@ -275,7 +275,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> socketReadToBuffer(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-read-to-buffer\n");
 #endif
 		size_t readLn;
@@ -333,7 +333,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> socketWriteFromBuffer(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-write-from-buffer\n");
 #endif
 
@@ -351,7 +351,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> socketBecomeOwner(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-become-owner\n");
 #endif
 
@@ -371,7 +371,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> socketLinkOwner(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-link-owner\n");
 #endif
 
@@ -391,7 +391,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> socketUnLinkOwner(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-unlink-owner\n");
 #endif
 
@@ -405,7 +405,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	static TPointer<Variable> socketTransferOwner(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef QUANTUM_SCRIPT_DEBUG_RUNTIME
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-transfer-owner\n");
 #endif
 
