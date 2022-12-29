@@ -10,6 +10,8 @@
 			"quantum-script--console",
 			"quantum-script--buffer",
 			"xyo-networking"
-		]
+		],
+		"hasRelease" : true,
+		"githubRelease" : true
 	}
 }
