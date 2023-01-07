@@ -90,14 +90,14 @@ namespace XYO::QuantumScript::Extension::Socket {
 		size_t readX;
 		size_t readTotal;
 		size_t k;
-		char buffer[16384];
+		char buffer[32768];
 
 		if (!TIsType<VariableSocket>(this_)) {
 			throw(Error("invalid parameter"));
 		};
 
 		if (TIsTypeExact<VariableUndefined>(arguments->index(0))) {
-			ln = 16384;
+			ln = 32768;
 		} else {
 
 			ln = (arguments->index(0))->toNumber();
@@ -108,7 +108,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 
 		readToLn = (size_t)(ln);
 		readTotal = 0;
-		readX = 16384;
+		readX = 32768;
 		if (readToLn < readX) {
 			readX = readToLn;
 		};
@@ -128,8 +128,8 @@ namespace XYO::QuantumScript::Extension::Socket {
 				break;
 			};
 			readX = readToLn - readTotal;
-			if (readX > 16384) {
-				readX = 16384;
+			if (readX > 32768) {
+				readX = 32768;
 			};
 		};
 
@@ -148,7 +148,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 		};
 
 		if (TIsTypeExact<VariableUndefined>(arguments->index(0))) {
-			ln = 16384;
+			ln = 32768;
 		} else {
 
 			ln = (arguments->index(0))->toNumber();
@@ -296,7 +296,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 		};
 
 		if (TIsTypeExact<VariableUndefined>(arguments->index(0))) {
-			ln = 16384;
+			ln = 32768;
 		} else {
 
 			ln = (arguments->index(1))->toNumber();
