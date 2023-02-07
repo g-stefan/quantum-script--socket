@@ -425,7 +425,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	};
 
 	void registerInternalExtension(Executive *executive) {
-		executive->registerInternalExtension("File", initExecutive);
+		executive->registerInternalExtension("Socket", initExecutive);
 	};
 
 	void initExecutive(Executive *executive, void *extensionId) {
