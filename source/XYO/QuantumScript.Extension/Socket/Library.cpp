@@ -430,10 +430,10 @@ namespace XYO::QuantumScript::Extension::Socket {
 
 	void initExecutive(Executive *executive, void *extensionId) {
 
-		String info = "File\r\n";
+		String info = "Socket\r\n";
 		info << License::shortLicense();
 
-		executive->setExtensionName(extensionId, "File");
+		executive->setExtensionName(extensionId, "Socket");
 		executive->setExtensionInfo(extensionId, info);
 		executive->setExtensionVersion(extensionId, Extension::Socket::Version::versionWithBuild());
 		executive->setExtensionPublic(extensionId, true);
