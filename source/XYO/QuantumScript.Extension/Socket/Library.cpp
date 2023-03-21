@@ -431,7 +431,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	void initExecutive(Executive *executive, void *extensionId) {
 
 		String info = "Socket\r\n";
-		info << License::shortLicense();
+		info << License::shortLicense().c_str();
 
 		executive->setExtensionName(extensionId, "Socket");
 		executive->setExtensionInfo(extensionId, info);

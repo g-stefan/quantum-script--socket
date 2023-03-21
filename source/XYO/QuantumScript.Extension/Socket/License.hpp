@@ -13,8 +13,8 @@
 
 namespace XYO::QuantumScript::Extension::Socket::License {
 
-	XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_EXPORT const char *license();
-	XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_EXPORT const char *shortLicense();
+	XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_EXPORT std::string license();
+	XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_EXPORT std::string shortLicense();
 
 };
 
