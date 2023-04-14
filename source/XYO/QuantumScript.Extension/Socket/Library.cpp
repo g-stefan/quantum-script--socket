@@ -157,7 +157,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 			};
 		};
 
-		if (StreamX::readLn(((VariableSocket *)this_)->value, retV, ln)) {
+		if (Stream::readLn(((VariableSocket *)this_)->value, retV, ln)) {
 			return VariableString::newVariable(retV);
 		};
 
