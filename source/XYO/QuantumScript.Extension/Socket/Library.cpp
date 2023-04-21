@@ -350,80 +350,6 @@ namespace XYO::QuantumScript::Extension::Socket {
 		return VariableNumber::newVariable((Number)(((VariableSocket *)this_)->value.write(((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.buffer, ((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.length)));
 	};
 
-	static TPointer<Variable> socketBecomeOwner(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
-		printf("- socket-become-owner\n");
-#endif
-
-		if (!TIsType<VariableSocket>(this_)) {
-			throw(Error("invalid parameter"));
-		};
-
-		TPointerX<Variable> &value = arguments->index(0);
-
-		if (!TIsType<VariableSocket>(value)) {
-			throw(Error("invalid parameter"));
-		};
-
-		((VariableSocket *)this_)->value.becomeOwner(((VariableSocket *)(value.value()))->value);
-
-		return Context::getValueUndefined();
-	};
-
-	static TPointer<Variable> socketLinkOwner(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
-		printf("- socket-link-owner\n");
-#endif
-
-		if (!TIsType<VariableSocket>(this_)) {
-			throw(Error("invalid parameter"));
-		};
-
-		TPointerX<Variable> &value = arguments->index(0);
-
-		if (!TIsType<VariableSocket>(value)) {
-			throw(Error("invalid parameter"));
-		};
-
-		((VariableSocket *)this_)->value.linkOwner(((VariableSocket *)(value.value()))->value);
-
-		return Context::getValueUndefined();
-	};
-
-	static TPointer<Variable> socketUnLinkOwner(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
-		printf("- socket-unlink-owner\n");
-#endif
-
-		if (!TIsType<VariableSocket>(this_)) {
-			throw(Error("invalid parameter"));
-		};
-
-		((VariableSocket *)this_)->value.unLinkOwner();
-
-		return Context::getValueUndefined();
-	};
-
-	static TPointer<Variable> socketTransferOwner(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
-		printf("- socket-transfer-owner\n");
-#endif
-
-		if (!TIsType<VariableSocket>(this_)) {
-			throw(Error("invalid parameter"));
-		};
-
-		TPointerX<Variable> &value = arguments->index(0);
-
-		if (!TIsType<VariableSocket>(value)) {
-			throw(Error("invalid parameter"));
-		};
-
-		((VariableSocket *)this_)->value.transferOwner(((VariableSocket *)(value.value()))->value);
-
-		return Context::getValueUndefined();
-	};
-
 	void registerInternalExtension(Executive *executive) {
 		executive->registerInternalExtension("Socket", initExecutive);
 	};
@@ -454,11 +380,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 		executive->setFunction2("Socket.prototype.waitToWrite(microSec)", waitToWrite);
 		executive->setFunction2("Socket.prototype.waitToRead(microSec)", waitToRead);
 		executive->setFunction2("Socket.prototype.readToBuffer(buffer)", socketReadToBuffer);
-		executive->setFunction2("Socket.prototype.writeFromBuffer(buffer)", socketWriteFromBuffer);
-		executive->setFunction2("Socket.prototype.becomeOwner(socket)", socketBecomeOwner);
-		executive->setFunction2("Socket.prototype.linkOwner(socket)", socketLinkOwner);
-		executive->setFunction2("Socket.prototype.unLinkOwner(socket)", socketUnLinkOwner);
-		executive->setFunction2("Socket.prototype.transferOwner(socket)", socketTransferOwner);
+		executive->setFunction2("Socket.prototype.writeFromBuffer(buffer)", socketWriteFromBuffer);		
 	};
 
 };

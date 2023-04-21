@@ -16,10 +16,6 @@ Socket.prototype.waitToWrite(microSec);
 Socket.prototype.waitToRead(microSec);
 Socket.prototype.readToBuffer(buffer);
 Socket.prototype.writeFromBuffer(buffer);
-Socket.prototype.becomeOwner(socket);
-Socket.prototype.linkOwner(socket);
-Socket.prototype.unLinkOwner(socket);
-Socket.prototype.transferOwner(socket);
 ```
 
 ## License
