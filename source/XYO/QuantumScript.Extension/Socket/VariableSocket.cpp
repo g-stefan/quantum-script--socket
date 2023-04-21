@@ -39,12 +39,6 @@ namespace XYO::QuantumScript::Extension::Socket {
 		value.close();
 	};
 
-	Variable *VariableSocket::clone(SymbolList &inSymbolList) {
-		VariableSocket *out = (VariableSocket *)newVariable();
-		out->value.becomeOwner(value);
-		return out;
-	};
-
 	bool VariableSocket::toBoolean() {
 		return true;
 	};

@@ -45,8 +45,6 @@ namespace XYO::QuantumScript::Extension::Socket {
 
 			XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_EXPORT Variable *instancePrototype();
 
-			XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_EXPORT Variable *clone(SymbolList &inSymbolList);
-
 			XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_EXPORT bool toBoolean();
 			XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_EXPORT String toString();
 	};
