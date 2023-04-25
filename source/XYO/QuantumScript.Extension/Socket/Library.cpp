@@ -85,12 +85,6 @@ namespace XYO::QuantumScript::Extension::Socket {
 #endif
 		String retV;
 		Number ln;
-		size_t readLn;
-		size_t readToLn;
-		size_t readX;
-		size_t readTotal;
-		size_t k;
-		char buffer[32768];
 
 		if (!TIsType<VariableSocket>(this_)) {
 			throw(Error("invalid parameter"));
@@ -99,48 +93,24 @@ namespace XYO::QuantumScript::Extension::Socket {
 		if (TIsTypeExact<VariableUndefined>(arguments->index(0))) {
 			ln = 32768;
 		} else {
-
 			ln = (arguments->index(0))->toNumber();
 			if (isnan(ln) || isinf(ln) || signbit(ln)) {
 				return Context::getValueUndefined();
 			};
 		};
 
-		readToLn = (size_t)(ln);
-		readTotal = 0;
-		readX = 32768;
-		if (readToLn < readX) {
-			readX = readToLn;
-		};
-		for (;;) {
-			readLn = ((VariableSocket *)this_)->value.read(buffer, readX);
-
-			if (readLn > 0) {
-				retV.concatenate(buffer, readLn);
-			};
-			// end of file
-			if (readLn < readX) {
-				break;
-			};
-			// end of read
-			readTotal += readLn;
-			if (readTotal >= readToLn) {
-				break;
-			};
-			readX = readToLn - readTotal;
-			if (readX > 32768) {
-				readX = 32768;
-			};
+		if (Stream::read(((VariableSocket *)this_)->value, retV, ln)) {
+			return VariableString::newVariable(retV);
 		};
 
-		return VariableString::newVariable(retV);
+		return Context::getValueUndefined();
 	};
 
 	static TPointer<Variable> socketReadLn(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-read-ln\n");
 #endif
-		String retV; // first 1024, next + 1024 bytes
+		String retV;
 		Number ln;
 
 		if (!TIsType<VariableSocket>(this_)) {
@@ -206,6 +176,20 @@ namespace XYO::QuantumScript::Extension::Socket {
 		};
 
 		return VariableBoolean::newVariable(((VariableSocket *)this_)->value.listen((uint16_t)count_));
+	};
+
+	static TPointer<Variable> socketShutdown(VariableFunction *function, Variable *this_, VariableArray *arguments) {
+#ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
+		printf("- socket-shutdown\n");
+#endif
+
+		if (!TIsType<VariableSocket>(this_)) {
+			throw(Error("invalid parameter"));
+		};
+
+		((VariableSocket *)this_)->value.shutdown();
+
+		return Context::getValueUndefined();
 	};
 
 	static TPointer<Variable> socketClose(VariableFunction *function, Variable *this_, VariableArray *arguments) {
@@ -278,11 +262,6 @@ namespace XYO::QuantumScript::Extension::Socket {
 #ifdef XYO_QUANTUMSCRIPT_DEBUG_RUNTIME
 		printf("- socket-read-to-buffer\n");
 #endif
-		size_t readLn;
-		size_t readToLn;
-		size_t readX;
-		size_t readTotal;
-		size_t k;
 		Number ln;
 
 		if (!TIsType<VariableSocket>(this_)) {
@@ -298,7 +277,6 @@ namespace XYO::QuantumScript::Extension::Socket {
 		if (TIsTypeExact<VariableUndefined>(arguments->index(0))) {
 			ln = 32768;
 		} else {
-
 			ln = (arguments->index(1))->toNumber();
 			if (isnan(ln) || signbit(ln) || ln == 0.0) {
 				((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.length = 0;
@@ -313,23 +291,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 			ln = ((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.size;
 		};
 
-		readToLn = (size_t)ln;
-		readTotal = 0;
-		readX = readToLn;
-		for (;;) {
-			readLn = ((VariableSocket *)this_)->value.read(&(((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.buffer)[readTotal], readX);
-			// end of transmision
-			if (readLn == 0) {
-				break;
-			};
-			readTotal += readLn;
-			if (readTotal >= readToLn) {
-				break;
-			};
-			readX = readToLn - readTotal;
-		};
-		((Extension::Buffer::VariableBuffer *)buffer.value())->buffer.length = readTotal;
-		return VariableNumber::newVariable(readTotal);
+		return VariableNumber::newVariable(Stream::readToBuffer(((VariableSocket *)this_)->value, ((Extension::Buffer::VariableBuffer *)buffer.value())->buffer, ln));
 	};
 
 	static TPointer<Variable> socketWriteFromBuffer(VariableFunction *function, Variable *this_, VariableArray *arguments) {
@@ -375,12 +337,13 @@ namespace XYO::QuantumScript::Extension::Socket {
 		executive->setFunction2("Socket.prototype.write(str)", socketWrite);
 		executive->setFunction2("Socket.prototype.writeLn(str)", socketWriteLn);
 		executive->setFunction2("Socket.prototype.listen(count)", socketListen);
+		executive->setFunction2("Socket.prototype.shutdown()", socketShutdown);
 		executive->setFunction2("Socket.prototype.close()", socketClose);
 		executive->setFunction2("Socket.prototype.accept()", socketAccept);
 		executive->setFunction2("Socket.prototype.waitToWrite(microSec)", waitToWrite);
 		executive->setFunction2("Socket.prototype.waitToRead(microSec)", waitToRead);
 		executive->setFunction2("Socket.prototype.readToBuffer(buffer)", socketReadToBuffer);
-		executive->setFunction2("Socket.prototype.writeFromBuffer(buffer)", socketWriteFromBuffer);		
+		executive->setFunction2("Socket.prototype.writeFromBuffer(buffer)", socketWriteFromBuffer);
 	};
 
 };

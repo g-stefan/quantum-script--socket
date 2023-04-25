@@ -10,6 +10,7 @@ Socket.prototype.readLn(size);
 Socket.prototype.write(str);
 Socket.prototype.writeLn(str);
 Socket.prototype.listen(count);
+Socket.prototype.shutdown();
 Socket.prototype.close();
 Socket.prototype.accept();
 Socket.prototype.waitToWrite(microSec);
