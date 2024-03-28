@@ -14,7 +14,7 @@
 namespace XYO::QuantumScript::Extension::Socket {
 
 	class SocketContext : public Object {
-			XYO_DISALLOW_COPY_ASSIGN_MOVE(SocketContext);
+			XYO_PLATFORM_DISALLOW_COPY_ASSIGN_MOVE(SocketContext);
 
 		public:
 			Symbol symbolFunctionSocket;

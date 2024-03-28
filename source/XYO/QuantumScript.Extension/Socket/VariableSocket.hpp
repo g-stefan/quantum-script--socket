@@ -26,7 +26,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 	using namespace XYO;
 
 	class VariableSocket : public Variable {
-			XYO_DISALLOW_COPY_ASSIGN_MOVE(VariableSocket);
+			XYO_PLATFORM_DISALLOW_COPY_ASSIGN_MOVE(VariableSocket);
 			XYO_DYNAMIC_TYPE_DEFINE(XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_EXPORT, VariableSocket);
 
 		protected:
