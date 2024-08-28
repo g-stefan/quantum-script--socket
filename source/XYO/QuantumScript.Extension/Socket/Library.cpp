@@ -348,8 +348,10 @@ namespace XYO::QuantumScript::Extension::Socket {
 
 };
 
-#ifdef XYO_PLATFORM_COMPILE_DYNAMIC_LIBRARY
+#ifndef XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_LIBRARY
+#	ifdef XYO_PLATFORM_COMPILE_DYNAMIC_LIBRARY
 extern "C" XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_EXPORT void quantumScriptExtension(XYO::QuantumScript::Executive *executive, void *extensionId) {
 	XYO::QuantumScript::Extension::Socket::initExecutive(executive, extensionId);
 };
+#	endif
 #endif
