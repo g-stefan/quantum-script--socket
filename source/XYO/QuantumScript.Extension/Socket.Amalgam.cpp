@@ -4,9 +4,9 @@
 // SPDX-FileCopyrightText: 2016-2026 Grigore Stefan <g_stefan@yahoo.com>
 // SPDX-License-Identifier: MIT
 
-#include <XYO/QuantumScript.Extension/File.hpp>
+#include <XYO/QuantumScript.Extension/Socket.hpp>
 #include <XYO/QuantumScript.Extension/Socket/Copyright.cpp>
 #include <XYO/QuantumScript.Extension/Socket/License.cpp>
 #include <XYO/QuantumScript.Extension/Socket/Version.cpp>
 #include <XYO/QuantumScript.Extension/Socket/Library.cpp>
-#include <XYO/QuantumScript.Extension/Socket/VariableFile.cpp>
+#include <XYO/QuantumScript.Extension/Socket/VariableSocket.cpp>

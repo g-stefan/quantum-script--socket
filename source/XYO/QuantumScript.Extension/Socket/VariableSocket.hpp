@@ -4,8 +4,8 @@
 // SPDX-FileCopyrightText: 2016-2026 Grigore Stefan <g_stefan@yahoo.com>
 // SPDX-License-Identifier: MIT
 
-#ifndef XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_VARIABLEFILE_HPP
-#define XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_VARIABLEFILE_HPP
+#ifndef XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_VARIABLESOCKET_HPP
+#define XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_VARIABLESOCKET_HPP
 
 #ifndef XYO_QUANTUMSCRIPT_EXTENSION_SOCKET_DEPENDENCY_HPP
 #	include <XYO/QuantumScript.Extension/Socket/Dependency.hpp>
@@ -13,12 +13,12 @@
 
 namespace XYO::QuantumScript::Extension::Socket {
 
-	class VariableFile;
+	class VariableSocket;
 };
 
 namespace XYO::ManagedMemory {
 	template <>
-	class TMemory<XYO::QuantumScript::Extension::Socket::VariableFile> : public TMemoryPoolActive<XYO::QuantumScript::Extension::Socket::VariableFile> {};
+	class TMemory<XYO::QuantumScript::Extension::Socket::VariableSocket> : public TMemoryPoolActive<XYO::QuantumScript::Extension::Socket::VariableSocket> {};
 };
 
 namespace XYO::QuantumScript::Extension::Socket {

@@ -274,7 +274,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 			throw(Error("invalid parameter"));
 		};
 
-		if (TIsTypeExact<VariableUndefined>(arguments->index(0))) {
+		if (TIsTypeExact<VariableUndefined>(arguments->index(1))) {
 			ln = 32768;
 		} else {
 			ln = (arguments->index(1))->toNumber();
@@ -342,7 +342,7 @@ namespace XYO::QuantumScript::Extension::Socket {
 		executive->setFunction2("Socket.prototype.accept()", socketAccept);
 		executive->setFunction2("Socket.prototype.waitToWrite(microSec)", waitToWrite);
 		executive->setFunction2("Socket.prototype.waitToRead(microSec)", waitToRead);
-		executive->setFunction2("Socket.prototype.readToBuffer(buffer)", socketReadToBuffer);
+		executive->setFunction2("Socket.prototype.readToBuffer(buffer,ln)", socketReadToBuffer);
 		executive->setFunction2("Socket.prototype.writeFromBuffer(buffer)", socketWriteFromBuffer);
 	};
 
